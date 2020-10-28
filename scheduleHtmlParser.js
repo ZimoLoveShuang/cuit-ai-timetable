@@ -62,7 +62,7 @@ function scheduleHtmlParser(html) {
                             course['name'] = value;
                             break;
                         case 2:
-                            course['teacher'] = value;
+                            course['teacher'] = value.substring('教师：'.length);
                             break;
                         case 3:
                             var weekStr = value;
@@ -77,7 +77,7 @@ function scheduleHtmlParser(html) {
                             course['weeks'] = weeks;
                             break;
                         case 0:
-                            course['position'] = value;
+                            course['position'] = value.substring('教室：'.length);
                             result.push(course);
                             course = {};
                             course['day'] = j;
