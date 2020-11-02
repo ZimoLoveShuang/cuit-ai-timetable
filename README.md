@@ -4,7 +4,7 @@
 
 # 使用
 
-目前暂不可用，原因是小爱课程表APP还有bug未解决
+目前暂不能按下面的步骤一键导入，原因是小爱课程表APP还有bug未解决，食用可参考我的博客文章：https://blog.zimo.wiki/posts/bf2ec5ab/
 
 1. miui12
 2. 小爱同学
