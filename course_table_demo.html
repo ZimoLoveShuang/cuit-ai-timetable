@@ -3,192 +3,452 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
-<table width="100%" id="manualArrangeCourseTable" align="center" class="gridtable" style="text-align:center" border="1">
-    <thead>
-    <tr>
-        <th style="background-color:#DEEDF7;" height="10px" width="80px">节次/周次
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期一</font>
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期二</font>
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期三</font>
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期四</font>
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期五</font>
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期六</font>
-        </th>
-        <th style="background-color:#DEEDF7;">
-            <font size="2px">星期日</font>
-        </th>
-    </tr>
-    </thead>
+<table class="indexpanel">
     <tbody>
     <tr>
-        <td style="background-color:rgb(238, 255, 0)">
-            <font size="2px"> 第一节</font>
-        </td>
-        <td id="TD0_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="操作系统结构 ;教师：徐虹;周次：1-8周;教室：H4303">操作系统结构 <br>教师：徐虹<br>周次：1-8周<br>教室：H4303
-        </td>
-        <td id="TD11_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="信息系统安全;教师：张永清;周次：9-12周;教室：H4501;;数字图像处理及应用;教师：胡金蓉;周次：5-8周;教室：H4501">信息系统安全<br>教师：张永清<br>周次：9-12周<br>教室：H4501<br><br>数字图像处理及应用<br>教师：胡金蓉<br>周次：5-8周<br>教室：H4501
-        </td>
-        <td id="TD22_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="高等工程数学 ;教师：任红萍;周次：1-10周;教室：H4501">高等工程数学 <br>教师：任红萍<br>周次：1-10周<br>教室：H4501
-        </td>
-        <td id="TD33_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="英语一 ;教师：李翠兰;周次：1-16周;教室：H2403">英语一 <br>教师：李翠兰<br>周次：1-16周<br>教室：H2403
-        </td>
-        <td id="TD44_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="云计算 ;教师：王婷;周次：1-4周;教室：H4303">云计算 <br>教师：王婷<br>周次：1-4周<br>教室：H4303
-        </td>
-        <td id="TD55_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD66_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(238, 255, 0)">
-            <font size="2px"> 第二节</font>
-        </td>
+        <td class="index_content">
+            <div id="contentDiv" class="ajax_container">
+                <form id="exportTableForm" name="exportTableForm" action="/eams/courseTableForStd!courseTable.action"
+                      method="post" target="">
+                    <span><font color="red">点击上方"课表类型"可切换查看不同类型课表</font></span>
+                    <div id="toolbar12042826911" class="toolbar notprint">
+                        <div class="toolbar-title"></div>
+                        <div class="toolbar-items" id="toolbar12042826911_items">
+                            <div class="toolbar-item toolbar-item-ge0" title="打印"><span
+                                    class="toolbar-icon action-default"></span>打印
+                            </div>
+                        </div>
+                        <div class="toolbar-msg" id="toolbar12042826911_msg" style="display: none;"></div>
+                        <div class="toolbar-line">
+                        </div>
+                    </div>
+                    <div id="ExportA" width="100%" align="center" cellpadding="0" cellspacing="0">
+                        <table width="100%" id="manualArrangeCourseTable" align="center" class="gridtable"
+                               style="text-align:center" border="1">
+                            <thead>
+                            <tr>
+                                <th style="background-color:#DEEDF7;" height="10px" width="80px">节次/周次
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期一</font>
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期二</font>
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期三</font>
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期四</font>
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期五</font>
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期六</font>
+                                </th>
+                                <th style="background-color:#DEEDF7;">
+                                    <font size="2px">星期日</font>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style="background-color:rgb(238, 255, 0)">
+                                    <font size="2px"> 第一节</font>
+                                </td>
+                                <td id="TD0_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="操作系统结构 ;教师：徐虹;周次：1-8周;教室：H4303">操作系统结构 <br>教师：徐虹<br>周次：1-8周<br>教室：H4303
+                                </td>
+                                <td id="TD11_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle"
+                                    title="信息系统安全;教师：张永清;周次：9-12周;教室：H4501;;数字图像处理及应用;教师：胡金蓉;周次：5-8周;教室：H4501">
+                                    信息系统安全<br>教师：张永清<br>周次：9-12周<br>教室：H4501<br><br>数字图像处理及应用<br>教师：胡金蓉<br>周次：5-8周<br>教室：H4501
+                                </td>
+                                <td id="TD22_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="高等工程数学 ;教师：任红萍;周次：1-10周;教室：H4501">高等工程数学 <br>教师：任红萍<br>周次：1-10周<br>教室：H4501
+                                </td>
+                                <td id="TD33_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="英语一 ;教师：李翠兰;周次：1-16周;教室：H2403">英语一
+                                    <br>教师：李翠兰<br>周次：1-16周<br>教室：H2403
+                                </td>
+                                <td id="TD44_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="云计算 ;教师：王婷;周次：1-4周;教室：H4303">云计算 <br>教师：王婷<br>周次：1-4周<br>教室：H4303
+                                </td>
+                                <td id="TD55_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD66_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(238, 255, 0)">
+                                    <font size="2px"> 第二节</font>
+                                </td>
 
 
-        <td id="TD56_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD67_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(238, 255, 0)">
-            <font size="2px"> 第三节</font>
-        </td>
-        <td id="TD2_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD13_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="英语一 ;教师：李翠兰;周次：1-16周;教室：H4301">英语一 <br>教师：李翠兰<br>周次：1-16周<br>教室：H4301
-        </td>
-        <td id="TD24_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="云计算;教师：王婷;周次：1-4周;教室：H4303;;数据挖掘;教师：马健兵;周次：9-12周;教室：H4501">
-            云计算<br>教师：王婷<br>周次：1-4周<br>教室：H4303<br><br>数据挖掘<br>教师：马健兵<br>周次：9-12周<br>教室：H4501
-        </td>
-        <td id="TD35_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="信息系统安全;教师：张永清;周次：9-12周;教室：H1603;;物联网技术;教师：沈艳;周次：5-8周;教室：H4601">信息系统安全<br>教师：张永清<br>周次：9-12周<br>教室：H1603<br><br>物联网技术<br>教师：沈艳<br>周次：5-8周<br>教室：H4601
-        </td>
-        <td id="TD46_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD57_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD68_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(238, 255, 0)">
-            <font size="2px"> 第四节</font>
-        </td>
-        <td id="TD3_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD56_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD67_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(238, 255, 0)">
+                                    <font size="2px"> 第三节</font>
+                                </td>
+                                <td id="TD2_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD13_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="英语一 ;教师：李翠兰;周次：1-16周;教室：H4301">英语一
+                                    <br>教师：李翠兰<br>周次：1-16周<br>教室：H4301
+                                </td>
+                                <td id="TD24_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle"
+                                    title="云计算;教师：王婷;周次：1-4周;教室：H4303;;数据挖掘;教师：马健兵;周次：9-12周;教室：H4501">云计算<br>教师：王婷<br>周次：1-4周<br>教室：H4303<br><br>数据挖掘<br>教师：马健兵<br>周次：9-12周<br>教室：H4501
+                                </td>
+                                <td id="TD35_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle"
+                                    title="信息系统安全;教师：张永清;周次：9-12周;教室：H1603;;物联网技术;教师：沈艳;周次：5-8周;教室：H4601">信息系统安全<br>教师：张永清<br>周次：9-12周<br>教室：H1603<br><br>物联网技术<br>教师：沈艳<br>周次：5-8周<br>教室：H4601
+                                </td>
+                                <td id="TD46_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD57_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD68_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(238, 255, 0)">
+                                    <font size="2px"> 第四节</font>
+                                </td>
+                                <td id="TD3_0" style="backGround-Color:#ffffff;font-size:12px"></td>
 
 
-        <td id="TD47_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD58_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD69_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(51, 187, 0)">
-            <font size="2px"> 第五节</font>
-        </td>
-        <td id="TD4_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="高等工程数学 ;教师：任红萍;周次：1-10周;教室：H4305">高等工程数学 <br>教师：任红萍<br>周次：1-10周<br>教室：H4305
-        </td>
-        <td id="TD15_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="物联网技术;教师：沈艳;周次：5-8周;教室：H4501;;现代数据库技术;教师：邹茂扬;周次：1-4周;教室：H4501;;虚拟现实;教师：魏敏;周次：9-12周;教室：H4501">
-            物联网技术<br>教师：沈艳<br>周次：5-8周<br>教室：H4501<br><br>现代数据库技术<br>教师：邹茂扬<br>周次：1-4周<br>教室：H4501<br><br>虚拟现实<br>教师：魏敏<br>周次：9-12周<br>教室：H4501
-        </td>
-        <td id="TD26_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="操作系统结构;教师：徐虹;周次：1-8周;教室：H4304;;自然辩证法概论;教师：黄澜;周次：9-17周;教室：H1301">操作系统结构<br>教师：徐虹<br>周次：1-8周<br>教室：H4304<br><br>自然辩证法概论<br>教师：黄澜<br>周次：9-17周<br>教室：H1301
-        </td>
-        <td id="TD37_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="现代数据库技术;教师：邹茂扬;周次：1-4周;教室：H4303;;数字图像处理及应用;教师：胡金蓉;周次：5-8周;教室：H4303;;虚拟现实;教师：魏敏;周次：9-12周;教室：H4305">
-            现代数据库技术<br>教师：邹茂扬<br>周次：1-4周<br>教室：H4303<br><br>数字图像处理及应用<br>教师：胡金蓉<br>周次：5-8周<br>教室：H4303<br><br>虚拟现实<br>教师：魏敏<br>周次：9-12周<br>教室：H4305
-        </td>
-        <td id="TD48_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD59_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD70_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(51, 187, 0)">
-            <font size="2px"> 第六节</font>
-        </td>
+                                <td id="TD47_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD58_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD69_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(51, 187, 0)">
+                                    <font size="2px"> 第五节</font>
+                                </td>
+                                <td id="TD4_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="高等工程数学 ;教师：任红萍;周次：1-10周;教室：H4305">高等工程数学 <br>教师：任红萍<br>周次：1-10周<br>教室：H4305
+                                </td>
+                                <td id="TD15_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle"
+                                    title="物联网技术;教师：沈艳;周次：5-8周;教室：H4501;;现代数据库技术;教师：邹茂扬;周次：1-4周;教室：H4501;;虚拟现实;教师：魏敏;周次：9-12周;教室：H4501">
+                                    物联网技术<br>教师：沈艳<br>周次：5-8周<br>教室：H4501<br><br>现代数据库技术<br>教师：邹茂扬<br>周次：1-4周<br>教室：H4501<br><br>虚拟现实<br>教师：魏敏<br>周次：9-12周<br>教室：H4501
+                                </td>
+                                <td id="TD26_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle"
+                                    title="操作系统结构;教师：徐虹;周次：1-8周;教室：H4304;;自然辩证法概论;教师：黄澜;周次：9-17周;教室：H1301">操作系统结构<br>教师：徐虹<br>周次：1-8周<br>教室：H4304<br><br>自然辩证法概论<br>教师：黄澜<br>周次：9-17周<br>教室：H1301
+                                </td>
+                                <td id="TD37_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle"
+                                    title="现代数据库技术;教师：邹茂扬;周次：1-4周;教室：H4303;;数字图像处理及应用;教师：胡金蓉;周次：5-8周;教室：H4303;;虚拟现实;教师：魏敏;周次：9-12周;教室：H4305">
+                                    现代数据库技术<br>教师：邹茂扬<br>周次：1-4周<br>教室：H4303<br><br>数字图像处理及应用<br>教师：胡金蓉<br>周次：5-8周<br>教室：H4303<br><br>虚拟现实<br>教师：魏敏<br>周次：9-12周<br>教室：H4305
+                                </td>
+                                <td id="TD48_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD59_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD70_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(51, 187, 0)">
+                                    <font size="2px"> 第六节</font>
+                                </td>
 
 
-        <td id="TD49_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD60_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD71_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(51, 187, 0)">
-            <font size="2px"> 第七节</font>
-        </td>
-        <td id="TD6_0" style="background-color: rgb(148, 174, 243); font-size: 12px;" rowspan="2" class="infoTitle"
-            title="数据挖掘 ;教师：马健兵;周次：9-12周;教室：H4303">数据挖掘 <br>教师：马健兵<br>周次：9-12周<br>教室：H4303
-        </td>
-        <td id="TD17_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD28_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD39_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD50_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD61_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD72_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(51, 187, 0)">
-            <font size="2px"> 第八节</font>
-        </td>
+                                <td id="TD49_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD60_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD71_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(51, 187, 0)">
+                                    <font size="2px"> 第七节</font>
+                                </td>
+                                <td id="TD6_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
+                                    rowspan="2" class="infoTitle" title="数据挖掘 ;教师：马健兵;周次：9-12周;教室：H4303">数据挖掘 <br>教师：马健兵<br>周次：9-12周<br>教室：H4303
+                                </td>
+                                <td id="TD17_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD28_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD39_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD50_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD61_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD72_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(51, 187, 0)">
+                                    <font size="2px"> 第八节</font>
+                                </td>
 
-        <td id="TD18_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD29_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD40_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD51_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD62_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD73_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(0, 191, 255)">
-            <font size="2px"> 第九节</font>
+                                <td id="TD18_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD29_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD40_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD51_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD62_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD73_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(0, 191, 255)">
+                                    <font size="2px"> 第九节</font>
+                                </td>
+                                <td id="TD8_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD19_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD30_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD41_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD52_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD63_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD74_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(0, 191, 255)">
+                                    <font size="2px"> 第十节</font>
+                                </td>
+                                <td id="TD9_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD20_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD31_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD42_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD53_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD64_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD75_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:rgb(0, 191, 255)">
+                                    <font size="2px"> 第十一节</font>
+                                </td>
+                                <td id="TD10_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD21_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD32_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD43_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD54_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD65_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                                <td id="TD76_0" style="backGround-Color:#ffffff;font-size:12px"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="tasklesson" style="position: relative;">
+                            <br>
+
+                            <strong>课程列表:</strong>
+                            <div class="grid">
+
+
+                                <table id="grid12042826911" class="gridtable">
+                                    <thead class="gridhead">
+
+
+                                    <tr>
+                                        <th width="10%">序号</th>
+                                        <th width="15%">课程代码</th>
+                                        <th width="15%">课程名称</th>
+                                        <th width="10%">学分</th>
+                                        <th width="10%">课程序号</th>
+                                        <th width="10%">教学班</th>
+                                        <th width="10%">教师</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+
+                                    </thead>
+
+                                    <tbody id="grid12042826911_data">
+                                    <tr class="griddata-even">
+                                        <td>1</td>
+                                        <td>KCJS001</td>
+                                        <td>操作系统结构</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56459"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS001.201003</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>徐虹</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56459"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56459"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-odd">
+                                        <td>2</td>
+                                        <td>KCJS002</td>
+                                        <td>高等工程数学</td>
+                                        <td>3</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56458"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS002.201003</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>任红萍</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56458"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56458"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-even">
+                                        <td>3</td>
+                                        <td>KCJS015</td>
+                                        <td>数字图像处理及应用</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56432"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS015.201001</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>胡金蓉</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56432"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56432"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-odd">
+                                        <td>4</td>
+                                        <td>KCJS023</td>
+                                        <td>云计算</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56422"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS023.201001</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>王婷</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56422"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56422"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-even">
+                                        <td>5</td>
+                                        <td>KCJS025</td>
+                                        <td>物联网技术</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56421"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS025.201001</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>沈艳</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56421"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56421"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-odd">
+                                        <td>6</td>
+                                        <td>KCJS027</td>
+                                        <td>现代数据库技术</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56423"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS027.201001</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>邹茂扬</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56423"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56423"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-even">
+                                        <td>7</td>
+                                        <td>KCJS028</td>
+                                        <td>信息系统安全</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56454"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS028.201004</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>张永清</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56454"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56454"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-odd">
+                                        <td>8</td>
+                                        <td>KCJS029</td>
+                                        <td>数据挖掘</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56444"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS029.201001</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>马健兵</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56444"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56444"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-even">
+                                        <td>9</td>
+                                        <td>KCJS030</td>
+                                        <td>虚拟现实</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56446"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCJS030.201001</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>魏敏</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56446"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56446"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-odd">
+                                        <td>10</td>
+                                        <td>KCMD003</td>
+                                        <td>自然辩证法概论</td>
+                                        <td>1</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56181"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCMD003.201005</a>
+                                        </td>
+                                        <td>学硕-计科-理(计)2020</td>
+                                        <td>黄澜</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56181"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56181"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="griddata-even">
+                                        <td>11</td>
+                                        <td>KCWY003</td>
+                                        <td>英语一</td>
+                                        <td>2</td>
+                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56424"
+                                               onclick="return bg.Go(this,null)"
+                                               title="点击显示单个教学任务具体安排">KCWY003.201031</a>
+                                        </td>
+                                        <td>专硕-电信(计)20201</td>
+                                        <td>李翠兰</td>
+                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56424"
+                                               target="_blank">授课计划</a>
+                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56424"
+                                               target="_blank">课程小节</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <br>
+                    </div>
+
+                </form>
+
         </td>
-        <td id="TD8_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD19_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD30_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD41_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD52_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD63_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD74_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(0, 191, 255)">
-            <font size="2px"> 第十节</font>
-        </td>
-        <td id="TD9_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD20_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD31_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD42_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD53_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD64_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD75_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-    </tr>
-    <tr>
-        <td style="background-color:rgb(0, 191, 255)">
-            <font size="2px"> 第十一节</font>
-        </td>
-        <td id="TD10_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD21_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD32_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD43_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD54_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD65_0" style="backGround-Color:#ffffff;font-size:12px"></td>
-        <td id="TD76_0" style="backGround-Color:#ffffff;font-size:12px"></td>
     </tr>
     </tbody>
 </table>
+</body>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 <script src="scheduleHtmlProvider.js"></script>
 <script src="scheduleHtmlParser.js"></script>
@@ -196,5 +456,4 @@
     console.log('小爱所需要的课表格式：')
     console.log(JSON.stringify(scheduleHtmlParser(scheduleHtmlProvider())));
 </script>
-</body>
 </html>
