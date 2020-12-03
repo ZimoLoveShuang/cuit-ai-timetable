@@ -69,8 +69,8 @@ function scheduleHtmlParser(html) {
 
     // 遍历表格
     // i代表行，也就是第几节课，j代表列，也就是周几
-    table.find('tr').each(function (i,tr) {
-        $(this).find('td').each(function (j,td) {
+    table.find('tr').each(function (i, tr) {
+        $(this).find('td').each(function (j, td) {
             if (i != 0 && j != 0) {
                 var info = unescape($(this).html().replace(/&#x/g, '%u').replace(/;/g, ''));
                 if (info.length > 0) {
@@ -88,8 +88,8 @@ function scheduleHtmlParser(html) {
                     var course = {};
                     course['day'] = j;
                     var sections = [];
+                    sections.push(sectionTimes[i - 1 - 1]);
                     sections.push(sectionTimes[i - 1]);
-                    sections.push(sectionTimes[i]);
                     course['sections'] = sections;
 
                     for (var k = 0; k < nsp.length; k++) {
@@ -119,8 +119,8 @@ function scheduleHtmlParser(html) {
                                 course = {};
                                 course['day'] = j;
                                 sections = [];
+                                sections.push(sectionTimes[i - 1 - 1]);
                                 sections.push(sectionTimes[i - 1]);
-                                sections.push(sectionTimes[i]);
                                 course['sections'] = sections;
                                 break;
                         }
@@ -129,7 +129,7 @@ function scheduleHtmlParser(html) {
             }
         });
     });
-    
+
     return {
         courseInfos: result,
         sectionTimes: sectionTimes

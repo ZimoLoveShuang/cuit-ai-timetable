@@ -10,6 +10,86 @@
             <div id="contentDiv" class="ajax_container">
                 <form id="exportTableForm" name="exportTableForm" action="/eams/courseTableForStd!courseTable.action"
                       method="post" target="">
+
+
+                    <script language="JavaScript" type="text/JavaScript"
+                            src="/eams/static/scripts/course/CuitTaskActivity.js?v3.21"></script>
+                    <script language="JavaScript">
+                        function fillTable(table, weeks, units, tableIndex) {
+
+                            for (var i = 0; i < weeks; i++) {
+                                for (var j = 0; j < units - 1; j++) {
+                                    var index = units * i + j;
+                                    var preTd = jQuery("#TD" + index + "_" + tableIndex);
+                                    var nextTd = jQuery("#TD" + (index + 1) + "_" + tableIndex);
+                                    while (table.marshalContents[index] != null && table.marshalContents[index + 1] != null && table.marshalContents[index] == table.marshalContents[index + 1]) {
+                                        nextTd.remove();
+                                        var spanNumber = 1;
+                                        if (preTd.prop("rowSpan")) spanNumber = new Number(preTd.prop("rowSpan"))
+                                        spanNumber++;
+                                        preTd.prop("rowSpan", spanNumber);
+                                        j++;
+                                        if (j >= units - 1) {
+                                            break;
+                                        }
+                                        index = index + 1;
+                                        nextTd = jQuery("#TD" + (index + 1) + "_" + tableIndex);
+                                    }
+                                }
+                            }
+
+                            for (var k = 0; k < table.unitCounts; k++) {
+                                var td = document.getElementById("TD" + k + "_" + tableIndex);
+                                if (td != null && table.marshalContents[k] != null) {
+                                    td.innerHTML = table.marshalContents[k];
+                                    td.style.backgroundColor = "#94aef3";
+                                    td.className = "infoTitle";
+
+                                    // 查找冲突 table.activities是什么，可以查看TaskActivity.js和courseTableContent_script.ftl
+                                    var activitiesInCell = table.activities[k];
+                                    if (detectCollisionInCell(activitiesInCell)) {
+                                        td.style.backgroundColor = "red";
+                                    }
+                                    td.className = "infoTitle";
+                                    td.title = table.marshalContents[k].replace(/<br>/g, ";");
+                                }
+                            }
+                        }
+
+                        function detectCollisionInCell(activitiesInCell) {
+                            if (activitiesInCell.length <= 1)
+                                return false;
+
+                            //单元格的课程集合[courseId(seqNo)->true]
+                            var cellCourseIds = new Object();
+                            var mergedValidWeeks = activitiesInCell[0].vaildWeeks.split("");
+                            //登记第一个课程
+                            cellCourseIds[activitiesInCell[0].courseName] = true;
+                            for (var z = 1; z < activitiesInCell.length; z++) {
+                                var detectCollision = false;
+                                var tValidWeeks = activitiesInCell[z].vaildWeeks.split("");
+                                if (mergedValidWeeks.length != tValidWeeks.length) {
+                                    alert('mergedValidWeeks.length != tValidWeeks.length');
+                                    return;
+                                }
+                                for (var x = 0; x < mergedValidWeeks.length; x++) {  //53代表53周
+                                    var m = new Number(mergedValidWeeks[x]);
+                                    var t = new Number(tValidWeeks[x]);
+                                    if (m + t <= 1) {
+                                        mergedValidWeeks[x] = m + t;
+                                    } else {
+                                        //如果已经是登记过的，则不算冲突
+                                        if (!cellCourseIds[activitiesInCell[z].courseName]) {
+                                            return true;  //发现冲突
+                                        }
+                                    }
+                                }
+                                //登记该课程
+                                cellCourseIds[activitiesInCell[z].courseName] = true;
+                            }
+                            return false;
+                        }
+                    </script>
                     <span><font color="red">点击上方"课表类型"可切换查看不同类型课表</font></span>
                     <div id="toolbar12042826911" class="toolbar notprint">
                         <div class="toolbar-title"></div>
@@ -19,9 +99,16 @@
                             </div>
                         </div>
                         <div class="toolbar-msg" id="toolbar12042826911_msg" style="display: none;"></div>
-                        <div class="toolbar-line">
+                        <div class="toolbar-line"><img height="1" width="100%" align="top"
+                                                       src="/eams/static/themes/default/icons/16x16/actions/keyline.png">
                         </div>
                     </div>
+                    <script type="text/javascript">
+                        bar = bg.ui.toolbar("toolbar12042826911", '');
+                        bar.addItem("打印", 'bg.Go("/eams/courseTableForStd!courseTable.action?setting.kind=std&ids=179078", "_blank")');
+
+                        bar.addHr();
+                    </script>
                     <div id="ExportA" width="100%" align="center" cellpadding="0" cellspacing="0">
                         <table width="100%" id="manualArrangeCourseTable" align="center" class="gridtable"
                                style="text-align:center" border="1">
@@ -61,9 +148,7 @@
                                     rowspan="2" class="infoTitle" title="操作系统结构 ;教师：徐虹;周次：1-8周;教室：H4303">操作系统结构 <br>教师：徐虹<br>周次：1-8周<br>教室：H4303
                                 </td>
                                 <td id="TD11_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
-                                    rowspan="2" class="infoTitle"
-                                    title="信息系统安全;教师：张永清;周次：9-12周;教室：H4501;;数字图像处理及应用;教师：胡金蓉;周次：5-8周;教室：H4501">
-                                    信息系统安全<br>教师：张永清<br>周次：9-12周<br>教室：H4501<br><br>数字图像处理及应用<br>教师：胡金蓉<br>周次：5-8周<br>教室：H4501
+                                    rowspan="2" class="infoTitle" title="信息系统安全 ;教师：张永清;周次：9-12周;教室：H4501">信息系统安全 <br>教师：张永清<br>周次：9-12周<br>教室：H4501
                                 </td>
                                 <td id="TD22_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
                                     rowspan="2" class="infoTitle" title="高等工程数学 ;教师：任红萍;周次：1-10周;教室：H4501">高等工程数学 <br>教师：任红萍<br>周次：1-10周<br>教室：H4501
@@ -72,9 +157,7 @@
                                     rowspan="2" class="infoTitle" title="英语一 ;教师：李翠兰;周次：1-16周;教室：H2403">英语一
                                     <br>教师：李翠兰<br>周次：1-16周<br>教室：H2403
                                 </td>
-                                <td id="TD44_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
-                                    rowspan="2" class="infoTitle" title="云计算 ;教师：王婷;周次：1-4周;教室：H4303">云计算 <br>教师：王婷<br>周次：1-4周<br>教室：H4303
-                                </td>
+                                <td id="TD44_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                                 <td id="TD55_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                                 <td id="TD66_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                             </tr>
@@ -84,6 +167,7 @@
                                 </td>
 
 
+                                <td id="TD45_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                                 <td id="TD56_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                                 <td id="TD67_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                             </tr>
@@ -97,12 +181,10 @@
                                     <br>教师：李翠兰<br>周次：1-16周<br>教室：H4301
                                 </td>
                                 <td id="TD24_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
-                                    rowspan="2" class="infoTitle"
-                                    title="云计算;教师：王婷;周次：1-4周;教室：H4303;;数据挖掘;教师：马健兵;周次：9-12周;教室：H4501">云计算<br>教师：王婷<br>周次：1-4周<br>教室：H4303<br><br>数据挖掘<br>教师：马健兵<br>周次：9-12周<br>教室：H4501
+                                    rowspan="2" class="infoTitle" title="数据挖掘 ;教师：马健兵;周次：9-12周;教室：H4501">数据挖掘 <br>教师：马健兵<br>周次：9-12周<br>教室：H4501
                                 </td>
                                 <td id="TD35_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
-                                    rowspan="2" class="infoTitle"
-                                    title="信息系统安全;教师：张永清;周次：9-12周;教室：H1603;;物联网技术;教师：沈艳;周次：5-8周;教室：H4601">信息系统安全<br>教师：张永清<br>周次：9-12周<br>教室：H1603<br><br>物联网技术<br>教师：沈艳<br>周次：5-8周<br>教室：H4601
+                                    rowspan="2" class="infoTitle" title="信息系统安全 ;教师：张永清;周次：9-12周;教室：H1603">信息系统安全 <br>教师：张永清<br>周次：9-12周<br>教室：H1603
                                 </td>
                                 <td id="TD46_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                                 <td id="TD57_0" style="backGround-Color:#ffffff;font-size:12px"></td>
@@ -127,18 +209,14 @@
                                     rowspan="2" class="infoTitle" title="高等工程数学 ;教师：任红萍;周次：1-10周;教室：H4305">高等工程数学 <br>教师：任红萍<br>周次：1-10周<br>教室：H4305
                                 </td>
                                 <td id="TD15_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
-                                    rowspan="2" class="infoTitle"
-                                    title="物联网技术;教师：沈艳;周次：5-8周;教室：H4501;;现代数据库技术;教师：邹茂扬;周次：1-4周;教室：H4501;;虚拟现实;教师：魏敏;周次：9-12周;教室：H4501">
-                                    物联网技术<br>教师：沈艳<br>周次：5-8周<br>教室：H4501<br><br>现代数据库技术<br>教师：邹茂扬<br>周次：1-4周<br>教室：H4501<br><br>虚拟现实<br>教师：魏敏<br>周次：9-12周<br>教室：H4501
+                                    rowspan="2" class="infoTitle" title="现代数据库技术 ;教师：邹茂扬;周次：1-4周;教室：H4501">现代数据库技术 <br>教师：邹茂扬<br>周次：1-4周<br>教室：H4501
                                 </td>
                                 <td id="TD26_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
                                     rowspan="2" class="infoTitle"
-                                    title="操作系统结构;教师：徐虹;周次：1-8周;教室：H4304;;自然辩证法概论;教师：黄澜;周次：9-17周;教室：H1301">操作系统结构<br>教师：徐虹<br>周次：1-8周<br>教室：H4304<br><br>自然辩证法概论<br>教师：黄澜<br>周次：9-17周<br>教室：H1301
+                                    title="自然辩证法概论;教师：黄澜;周次：9-17周;教室：H1301;;操作系统结构;教师：徐虹;周次：1-8周;教室：H4304">自然辩证法概论<br>教师：黄澜<br>周次：9-17周<br>教室：H1301<br><br>操作系统结构<br>教师：徐虹<br>周次：1-8周<br>教室：H4304
                                 </td>
                                 <td id="TD37_0" style="background-color: rgb(148, 174, 243); font-size: 12px;"
-                                    rowspan="2" class="infoTitle"
-                                    title="现代数据库技术;教师：邹茂扬;周次：1-4周;教室：H4303;;数字图像处理及应用;教师：胡金蓉;周次：5-8周;教室：H4303;;虚拟现实;教师：魏敏;周次：9-12周;教室：H4305">
-                                    现代数据库技术<br>教师：邹茂扬<br>周次：1-4周<br>教室：H4303<br><br>数字图像处理及应用<br>教师：胡金蓉<br>周次：5-8周<br>教室：H4303<br><br>虚拟现实<br>教师：魏敏<br>周次：9-12周<br>教室：H4305
+                                    rowspan="2" class="infoTitle" title="现代数据库技术 ;教师：邹茂扬;周次：1-4周;教室：H4303">现代数据库技术 <br>教师：邹茂扬<br>周次：1-4周<br>教室：H4303
                                 </td>
                                 <td id="TD48_0" style="backGround-Color:#ffffff;font-size:12px"></td>
                                 <td id="TD59_0" style="backGround-Color:#ffffff;font-size:12px"></td>
@@ -218,6 +296,367 @@
                             </tr>
                             </tbody>
                         </table>
+                        <script language="JavaScript">
+                            // function CourseTable in TaskActivity.js
+                            var language = "zh";
+                            var table0 = new CourseTable(2020, 77);
+                            var unitCount = 11;
+                            var index = 0;
+                            var activity = null;
+                            var teachers = [{id: 3134, name: "黄澜", lab: false}];
+                            var actTeachers = [{id: 3134, name: "黄澜", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3342(KCMD003.201005)", "自然辩证法概论", "40", "H1301", "00000000011111111100000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 2 * unitCount + 4;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 2 * unitCount + 5;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 1994, name: "任红萍", lab: false}];
+                            var actTeachers = [{id: 1994, name: "任红萍", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3305(KCJS002.201003)", "高等工程数学", "149", "H4501", "01111111111000000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 2 * unitCount + 0;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 2 * unitCount + 1;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 1994, name: "任红萍", lab: false}];
+                            var actTeachers = [{id: 1994, name: "任红萍", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3305(KCJS002.201003)", "高等工程数学", "128", "H4305", "01111111111000000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 0 * unitCount + 4;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 0 * unitCount + 5;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 2432, name: "邹茂扬", lab: false}];
+                            var actTeachers = [{id: 2432, name: "邹茂扬", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "57153(KCJS027.201001)", "现代数据库技术", "126", "H4303", "01111000000000000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 3 * unitCount + 4;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 3 * unitCount + 5;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 2432, name: "邹茂扬", lab: false}];
+                            var actTeachers = [{id: 2432, name: "邹茂扬", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "57153(KCJS027.201001)", "现代数据库技术", "149", "H4501", "01111000000000000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 1 * unitCount + 4;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 1 * unitCount + 5;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 5307, name: "马健兵", lab: false}];
+                            var actTeachers = [{id: 5307, name: "马健兵", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "57155(KCJS029.201001)", "数据挖掘", "149", "H4501", "00000000011110000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 2 * unitCount + 2;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 2 * unitCount + 3;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 5307, name: "马健兵", lab: false}];
+                            var actTeachers = [{id: 5307, name: "马健兵", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "57155(KCJS029.201001)", "数据挖掘", "126", "H4303", "00000000011110000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 0 * unitCount + 6;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 0 * unitCount + 7;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 3594, name: "李翠兰", lab: false}];
+                            var actTeachers = [{id: 3594, name: "李翠兰", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3494(KCWY003.201031)", "英语一", "92", "H2403", "01111111111111111000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 3 * unitCount + 0;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 3 * unitCount + 1;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 3594, name: "李翠兰", lab: false}];
+                            var actTeachers = [{id: 3594, name: "李翠兰", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3494(KCWY003.201031)", "英语一", "124", "H4301", "01111111111111111000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 1 * unitCount + 2;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 1 * unitCount + 3;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 2880, name: "徐虹", lab: false}];
+                            var actTeachers = [{id: 2880, name: "徐虹", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3304(KCJS001.201003)", "操作系统结构", "127", "H4304", "01111111100000000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 2 * unitCount + 4;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 2 * unitCount + 5;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 2880, name: "徐虹", lab: false}];
+                            var actTeachers = [{id: 2880, name: "徐虹", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "3304(KCJS001.201003)", "操作系统结构", "126", "H4303", "01111111100000000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 0 * unitCount + 0;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 0 * unitCount + 1;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 4357, name: "张永清", lab: false}];
+                            var actTeachers = [{id: 4357, name: "张永清", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "57154(KCJS028.201004)", "信息系统安全", "65", "H1603", "00000000011110000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 3 * unitCount + 2;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 3 * unitCount + 3;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            var teachers = [{id: 4357, name: "张永清", lab: false}];
+                            var actTeachers = [{id: 4357, name: "张永清", lab: false}];
+                            var assistant = _.filter(actTeachers, function (actTeacher) {
+                                return (_.where(teachers, {
+                                    id: actTeacher.id,
+                                    name: actTeacher.name,
+                                    lab: actTeacher.lab
+                                }).length == 0) && (actTeacher.lab == true);
+                            });
+                            var assistantName = "";
+                            if (assistant.length > 0) {
+                                assistantName = assistant[0].name;
+                                actTeachers = _.reject(actTeachers, function (actTeacher) {
+                                    return _.where(assistant, {id: actTeacher.id}).length > 0;
+                                });
+                            }
+                            var actTeacherId = [];
+                            var actTeacherName = [];
+                            for (var i = 0; i < actTeachers.length; i++) {
+                                actTeacherId.push(actTeachers[i].id);
+                                actTeacherName.push(actTeachers[i].name);
+                            }
+                            activity = new TaskActivity(actTeacherId.join(','), actTeacherName.join(','), "57154(KCJS028.201004)", "信息系统安全", "149", "H4501", "00000000011110000000000000000000000000000000000000000", null, null, assistantName, "", "", "", "");
+                            index = 1 * unitCount + 0;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            index = 1 * unitCount + 1;
+                            table0.activities[index][table0.activities[index].length] = activity;
+                            table0.marshalTable(2, 1, 20);
+                            fillTable(table0, 7, 11, 0);
+                        </script>
 
                         <div id="tasklesson" style="position: relative;">
                             <br>
@@ -280,57 +719,6 @@
                                     </tr>
                                     <tr class="griddata-even">
                                         <td>3</td>
-                                        <td>KCJS015</td>
-                                        <td>数字图像处理及应用</td>
-                                        <td>2</td>
-                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56432"
-                                               onclick="return bg.Go(this,null)"
-                                               title="点击显示单个教学任务具体安排">KCJS015.201001</a>
-                                        </td>
-                                        <td>学硕-计科-理(计)2020</td>
-                                        <td>胡金蓉</td>
-                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56432"
-                                               target="_blank">授课计划</a>
-                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56432"
-                                               target="_blank">课程小节</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="griddata-odd">
-                                        <td>4</td>
-                                        <td>KCJS023</td>
-                                        <td>云计算</td>
-                                        <td>2</td>
-                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56422"
-                                               onclick="return bg.Go(this,null)"
-                                               title="点击显示单个教学任务具体安排">KCJS023.201001</a>
-                                        </td>
-                                        <td>学硕-计科-理(计)2020</td>
-                                        <td>王婷</td>
-                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56422"
-                                               target="_blank">授课计划</a>
-                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56422"
-                                               target="_blank">课程小节</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="griddata-even">
-                                        <td>5</td>
-                                        <td>KCJS025</td>
-                                        <td>物联网技术</td>
-                                        <td>2</td>
-                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56421"
-                                               onclick="return bg.Go(this,null)"
-                                               title="点击显示单个教学任务具体安排">KCJS025.201001</a>
-                                        </td>
-                                        <td>学硕-计科-理(计)2020</td>
-                                        <td>沈艳</td>
-                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56421"
-                                               target="_blank">授课计划</a>
-                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56421"
-                                               target="_blank">课程小节</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="griddata-odd">
-                                        <td>6</td>
                                         <td>KCJS027</td>
                                         <td>现代数据库技术</td>
                                         <td>2</td>
@@ -346,8 +734,8 @@
                                                target="_blank">课程小节</a>
                                         </td>
                                     </tr>
-                                    <tr class="griddata-even">
-                                        <td>7</td>
+                                    <tr class="griddata-odd">
+                                        <td>4</td>
                                         <td>KCJS028</td>
                                         <td>信息系统安全</td>
                                         <td>2</td>
@@ -363,8 +751,8 @@
                                                target="_blank">课程小节</a>
                                         </td>
                                     </tr>
-                                    <tr class="griddata-odd">
-                                        <td>8</td>
+                                    <tr class="griddata-even">
+                                        <td>5</td>
                                         <td>KCJS029</td>
                                         <td>数据挖掘</td>
                                         <td>2</td>
@@ -380,25 +768,8 @@
                                                target="_blank">课程小节</a>
                                         </td>
                                     </tr>
-                                    <tr class="griddata-even">
-                                        <td>9</td>
-                                        <td>KCJS030</td>
-                                        <td>虚拟现实</td>
-                                        <td>2</td>
-                                        <td><a href="/eams/courseTableForStd!taskTable.action?lesson.id=56446"
-                                               onclick="return bg.Go(this,null)"
-                                               title="点击显示单个教学任务具体安排">KCJS030.201001</a>
-                                        </td>
-                                        <td>学硕-计科-理(计)2020</td>
-                                        <td>魏敏</td>
-                                        <td><a href="/eams/courseTableForStd!teachPlanInfo.action?lesson.id=56446"
-                                               target="_blank">授课计划</a>
-                                            <a href="/eams/courseTableForStd!courseSummaryInfo.action?lesson.id=56446"
-                                               target="_blank">课程小节</a>
-                                        </td>
-                                    </tr>
                                     <tr class="griddata-odd">
-                                        <td>10</td>
+                                        <td>6</td>
                                         <td>KCMD003</td>
                                         <td>自然辩证法概论</td>
                                         <td>1</td>
@@ -415,7 +786,7 @@
                                         </td>
                                     </tr>
                                     <tr class="griddata-even">
-                                        <td>11</td>
+                                        <td>7</td>
                                         <td>KCWY003</td>
                                         <td>英语一</td>
                                         <td>2</td>
@@ -434,6 +805,34 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <script type="text/javascript">
+                                var clearCheckbox_grid12042826911 = function () {
+                                    jQuery("#grid12042826911").find(".box:checkbox").removeProp("checked");
+                                    jQuery("#grid12042826911").find(".gridselect-top :checkbox").removeProp("checked");
+                                    return true;
+                                }
+
+                                page_grid12042826911 = bg.page("/eams/courseTableForStd!courseTable.action", "");
+                                {
+                                    var _paramstring = 'ignoreHead=1&setting.kind=std&startWeek=&semester.id=302&ids=179078';
+                                    var _params = _paramstring.split('&');
+                                    for (var i = 0; i < _params.length; i++) {
+                                        _params[i] = decodeURIComponent(_params[i]);
+                                    }
+                                    _paramstring = _params.join('&');
+                                    page_grid12042826911.target("", 'grid12042826911').action("/eams/courseTableForStd!courseTable.action").addParams(_paramstring).orderBy("null");
+                                }
+                                bg.ui.grid.init('grid12042826911', page_grid12042826911);
+
+                                jQuery(function () {
+                                    jQuery(".pgbar-input").change(function () {
+                                        jQuery(".pgbar-go").eq(0).click();
+                                    });
+                                    jQuery(".pgbar-selbox").change(function () {
+                                        jQuery(".pgbar-go").eq(0).click();
+                                    });
+                                });
+                            </script>
 
                         </div>
 
@@ -443,6 +842,21 @@
                     </div>
 
                 </form>
+                <script>
+                    jQuery(function () {
+                        try {
+                            var selectTitle = jQuery(jQuery(".current")[1]).children().html()
+                            if (selectTitle != undefined) {
+                                jQuery(jQuery(".toolbar-title")[0]).children().next().html(selectTitle);
+                            } else {
+                                jQuery(jQuery(".toolbar-title")[0]).children().next().html(jQuery(jQuery(".current")[1]).children().html());
+                                ;
+                            }
+                        } catch (e) {
+                        }
+                    });
+                </script>
+            </div>
 
         </td>
     </tr>
